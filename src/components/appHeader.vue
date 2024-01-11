@@ -30,10 +30,9 @@ export default {
 }
 
 .logo {
-    max-width: 60px;
+    max-width: 50px;
     margin-right: 10px;
     margin-left: 10px;
-
     float: left;
 
 }
