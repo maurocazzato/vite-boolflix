@@ -1,41 +1,51 @@
 <script>
-import axios from 'axios';
-import { store } from '../store';
 export default {
     name: "movieCard",
+    props: {
+        movie: Object,
+    },
     data() {
         return {
-            store,
-        }
+            showDetails: false,
+        };
     },
     methods: {
-        getFilm() {
-            axios
-                .get(store.apiUrl)
-                .then((res => {
-                    store.movieList = res.data.results;
-                    console.log(res.data.results);
-                }))
+        getMoviePosterUrl(posterPath) {
+            if (posterPath) {
+                const baseUrl = 'https://image.tmdb.org/t/p/';
+                // Dimensione 
+                const size = 'w342';
+                // URL completo
+                return `${baseUrl}${size}${posterPath}`;
+            } else {
+                // nel caso in cui la posterPath non sia disponibile
+                return 'https://via.placeholder.com/342x513?text=No+Image';
+            }
+        },
+        convertRatingToStars(rating) {
+            // Arrotonda il voto 
+            const roundedRating = Math.ceil(rating);
 
-        }
+            const maxStars = 5;
+            // array di stelle in base al voto
+            const starsArray = Array.from({ length: maxStars }, (_, index) => index < roundedRating);
+
+            //  stampa le stelle
+            return starsArray.map(isFilled => (isFilled ? '★' : '☆')).join('');
+        },
+
     },
-    created() {
-        this.getFilm()
-    }
-
-
 };
 </script>
 
 <template>
-    <div>
-        <div v-for="movie in movieList" :key="movie.id" class="card mb-3">
-            <img :src="results[0].ibackdrop_path" alt="" />
-            <img :src="backdrop_path" alt="">
-            <h5 class="card-title">{{ movie.title }}</h5>
-            <p class="card-text">Titolo Originale: {{ movie.original_title }}</p>
-            <p class="card-text">Lingua: {{ movie.original_language }}</p>
-            <p class="card-text">Voto: {{ movie.vote_average }}</p>
+    <div class="movie-card" @mouseover="showDetails = true" @mouseleave="showDetails = false">
+        <img :src="getMoviePosterUrl(movie.poster_path)" alt="" />
+        <div v-if="showDetails" class="movie-details">
+            <h3>{{ movie.title }}</h3>
+            <p>{{ movie.original_title }}</p>
+            <p>Lingua: {{ movie.original_language }}</p>
+            <p>Voto: {{ convertRatingToStars(movie.vote_average) }}</p>
         </div>
     </div>
 </template>
@@ -44,14 +54,30 @@ export default {
 @use '../styles/partials/_variables' as *;
 @use '../styles/partials/_mixins.scss' as *;
 
-.card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-}
+.movie-card {
+    position: relative;
+    width: 200px;
 
-.card:hover {
-    transform: scale(1.02);
+    .movie-details {
+        text-align: center;
+        padding: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    &:hover .movie-details {
+        opacity: 1;
+    }
 }
 </style>

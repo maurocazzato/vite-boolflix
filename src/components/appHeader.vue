@@ -6,28 +6,15 @@ export default {
 
 <template>
     <header>
-        <div class="container-fluid">
-            <div class="row ">
-                <div class="col-auto ">
-                    <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/227_Netflix_logo-1024.png"
-                        alt="Logo" class="logo" />
-                    <h1 class="title">BOOLFLIX</h1>
-                </div>
-            </div>
-        </div>
+        <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/227_Netflix_logo-1024.png" alt="Logo"
+            class="logo" />
+        <h1 class="title">BOOLFLIX</h1>
     </header>
 </template>
 
 <style lang="scss" scoped>
 @use '../styles/partials/_variables' as *;
 @use '../styles/partials/_mixins.scss' as *;
-
-.container-fluid {
-    background-color: black;
-    max-width: 100%;
-    padding: 5px;
-
-}
 
 .logo {
     max-width: 50px;

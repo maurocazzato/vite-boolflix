@@ -10,17 +10,73 @@ export default {
         appSearch,
         movieCard,
     },
+    data() {
+        return {
+            movieList: [],
+        };
+    },
+    methods: {
+        updateMovieList(results, type) {
+
+            if (type === 'movies') {
+                this.movieList = results;
+            } else {
+
+            }
+        }
+    },
 };
 </script>
 
 <template>
-    <appHeader />
-    <appSearch />
-    <movieCard />
+    <div id="app">
+        <header>
+            <appHeader />
+            <appSearch @updateMovieList="updateMovieList" />
+        </header>
+        <!-- <div class="sezione">
+            <h1>Film</h1>
+        </div> -->
+        <main>
+            <movieCard v-for="movie in movieList" :key="movie.id" :movie="movie" />
+        </main>
+    </div>
 </template>
 
 
 <style lang="scss">
 @use './styles/partials/_variables' as *;
 @use './styles/_general.scss' as *;
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+header {
+    background-color: rgba(0, 0, 2, 255);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    background-color: rgba(0, 0, 2, 255);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+// .sezione {
+//     background-color: rgba(0, 0, 2, 255);
+//     padding: 5px;
+// }
+
+// h1 {
+//     color: white;
+//     font-size: 30px;
+//     margin-left: 20px;
+// }
 </style>
