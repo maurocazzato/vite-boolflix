@@ -69,14 +69,14 @@ main {
     padding: 20px;
 }
 
-// .sezione {
-//     background-color: rgba(0, 0, 2, 255);
-//     padding: 5px;
-// }
+.sezione {
+    background-color: rgba(0, 0, 2, 255);
+    padding: 5px;
+}
 
-// h1 {
-//     color: white;
-//     font-size: 30px;
-//     margin-left: 20px;
-// }
+h1 {
+    color: white;
+    font-size: 30px;
+    margin-left: 20px;
+}
 </style>
